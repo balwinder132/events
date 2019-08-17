@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "events")
@@ -33,16 +34,16 @@ public class Events {
 	@NotBlank
 	private String customerName;
 
-	@NotBlank
+	@NotNull
 	private TYPE eventType;
 
-	@NotBlank
+	@NotNull
 	private Date eventTime;
 
-	@NotBlank
+	@NotNull
 	private STATUS eventStatus;
 
-	@NotBlank
+	@NotNull
 	private BigDecimal totalAmount;
 
 	@ManyToOne(cascade = CascadeType.ALL)

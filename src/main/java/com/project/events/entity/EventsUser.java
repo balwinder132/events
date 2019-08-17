@@ -35,6 +35,9 @@ public class EventsUser {
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private List<Events> events;
 
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	private List<Card> cards;
+
 	public Long getId() {
 		return id;
 	}

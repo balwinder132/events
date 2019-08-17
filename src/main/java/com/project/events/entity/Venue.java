@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "venue")
@@ -24,7 +25,7 @@ public class Venue {
 	@NotBlank
 	private String name;
 
-	@NotBlank
+	@NotNull
 	private BigDecimal pricePerDay;
 
 	@NotBlank
