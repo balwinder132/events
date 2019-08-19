@@ -6,7 +6,7 @@ import com.project.events.entity.Events;
 
 public interface EventsService {
 
-	public void delete(Events event);
+	public void delete(Events object);
 
 	public List<Events> findAll();
 
@@ -17,5 +17,8 @@ public interface EventsService {
 	List<Events> findByUserId(Long userId);
 
 	List<Events> findByVenueId(Long venueId);
+	
+	List<Events> findByUserEmail(String email);
+	
 
 }

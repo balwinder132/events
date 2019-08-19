@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -38,8 +39,8 @@
 			<nav id="colorlib-main-menu" role="navigation">
 				<ul>
 					<li><a href="/event">Event</a></li>
-					<li><a href="/event/view-events">View Events</a></li>
 					<li><a href="/venue">Add Venue</a></li>
+					
 					<li><a href="/logout">logout</a></li>
 				</ul>
 			</nav>
@@ -47,34 +48,34 @@
 		</aside> <!-- END COLORLIB-ASIDE -->
 		<div id="colorlib-main">
 			          ${success}
+			${event}
 			<section class="ftco-section contact-section px-md-4">
 	      <div class="container">
 	        
-	        <div class="row block-9">
-	          <div class="col-lg-6 d-flex">
-	            <form action="" class="bg-light p-5 contact-form" method="post">
-	              <div class="form-group">
-	                <input type="text" class="form-control" placeholder="Card Holder Name" name="name">
-	              </div>
-	               <div class="form-group">
-	                <input type="text" class="form-control" placeholder="Card Number" name="number">
-	              </div>
-	              <div class="form-group">
-	                <input type="text" class="form-control" placeholder="Expiry: 01/21" name="expiry">
-	              </div>
-	              
-	              <div class="form-group">
-	                <input type="checkbox" class="form-control" placeholder="Save" name="saveCard"> Save Card
-	              </div>
-	              
-	              <div class="form-group">
-	                <input type="hidden" class="form-control" placeholder="Event Id" name="eventId" value="${event}">
-	              </div>
-	              <div class="form-group">
-	                <input type="submit" value="Pay" class="btn btn-primary py-3 px-5">
-	              </div>
-	            </form>
-	          
+	        <div class="row px-md-4">
+	          <div class="col-md-12">	     
+	           <table style="width: 100%;">
+			           <th>
+				           	<td>Customer Name</td>
+				           	<td>Event Type</td>
+				           	<td>Venue</td>
+				           	<td>Event Status</td>
+				           	<td>Event Date</td>
+				           	<td>Amount Paid</td>
+				           	<td>Action</td>
+			           </th>
+		           	<c:forEach items = "${events}" var = "event">
+						<tr>
+							<td>${event.customerName}</td>
+				           	<td>${event.eventType}</td>
+				           	<td>${event.venue.name}</td>
+				           	<td>${event.eventStatus}</td>
+				           	<td>${event.eventTime}</td>
+				           	<td>${event.totalAmount}</td>
+				           	<td><a href="/event/delete/${event.id}">Delete</a></td>
+						</tr>
+				    </c:forEach>
+	           </table>
 	          </div>
 	        </div>
 	      </div>

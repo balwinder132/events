@@ -46,11 +46,11 @@ public class Events {
 	@NotNull
 	private BigDecimal totalAmount;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name="events_user_id")
 	private EventsUser user;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name="venue_id")
 	private Venue venue;
 

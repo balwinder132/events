@@ -38,6 +38,8 @@
 			<nav id="colorlib-main-menu" role="navigation">
 				<ul>
 					<li><a href="/event">Event</a></li>
+					<li><a href="/event/view-events">View Events</a></li>
+					
 					<li><a href="/logout">logout</a></li>
 				</ul>
 			</nav>
@@ -65,7 +67,7 @@
 	                <input type="text" class="form-control" placeholder="Address" name="address">
 	              </div>
 	              <div class="form-group">
-	                <input type="submit" value="Sign Up" class="btn btn-primary py-3 px-5">
+	                <input type="submit" value="Add Venue" class="btn btn-primary py-3 px-5">
 	              </div>
 	            </form>
 	          

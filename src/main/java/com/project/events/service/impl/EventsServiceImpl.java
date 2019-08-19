@@ -2,6 +2,8 @@ package com.project.events.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +18,8 @@ public class EventsServiceImpl implements EventsService {
 	private EventsRepository eventsRepository;
 
 	@Override
-	public void delete(Events event) {
-		eventsRepository.delete(event);
+	public void delete(Events object) {
+		eventsRepository.delete(object);//deleteQuery(id);
 	}
 
 	@Override
@@ -44,6 +46,11 @@ public class EventsServiceImpl implements EventsService {
 	@Override
 	public List<Events> findByVenueId(Long venueId) {
 		return eventsRepository.findByVenueId(venueId);
+	}
+
+	@Override
+	public List<Events> findByUserEmail(String email) {
+		return eventsRepository.findByUserEmail(email);
 	}
 	
 }

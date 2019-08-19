@@ -38,7 +38,9 @@
 		<aside id="colorlib-aside" role="complementary" class="js-fullheight">
 			<nav id="colorlib-main-menu" role="navigation">
 				<ul>
+					<li><a href="/event/view-events">View Events</a></li>
 					<li><a href="/venue">Add Venue</a></li>
+					
 					<li><a href="/logout">Logout</a></li>
 				</ul>
 			</nav>

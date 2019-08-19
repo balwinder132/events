@@ -1,15 +1,18 @@
 package com.project.events.controller;
 
 import java.text.ParseException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -65,8 +68,6 @@ public class EventController {
 		EventRequestDTO eventRequest = new EventRequestDTO(request);
 		eventRequest.setEventStatus(STATUS.PAYMENT_PENDING);
 		Events event = eventMapper.toEntity(eventRequest);
-		System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
-		System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		event.setUser(userService.findByEmail(user.getUsername()));
 		event.setVenue(venueService.findById(eventRequest.getVenueId()));
@@ -85,13 +86,12 @@ public class EventController {
 	@RequestMapping( value="/payment", method = RequestMethod.POST)
 	public ModelAndView addCard(HttpServletRequest request, ModelMap map) throws ParseException {
 		CardRequestDTO cardRequest = new CardRequestDTO(request);
-		System.out.println(request.getParameter("saveCard"));
 		String saveCard = request.getParameter("saveCard");
 		boolean save = saveCard != null ? (saveCard.equals("on") ? true : false) : false;
-		System.out.println(request.getParameter("saveCard"));
 		if(save) {
 			Card card = cardMapper.toEntity(cardRequest);
-			card.setUser(userService.findById(1L));
+			User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			card.setUser(userService.findByEmail(user.getUsername()));
 			cardService.save(card);
 		}
 
@@ -99,5 +99,26 @@ public class EventController {
 		event.setEventStatus(STATUS.PAYMENT_SUCCESSFUL);
 		eventService.save(event);
 		map.addAttribute("success", "Event added successfuly");
-		return new ModelAndView("redirect:/event", map);	}
+		return new ModelAndView("redirect:/event", map);	
+	}
+	
+	@RequestMapping( value="/view-events", method = RequestMethod.GET)
+	public String viewEvents(ModelMap map) {
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println(user.getUsername());
+		
+		List<Events> events = eventService.findByUserEmail(user.getUsername());
+		System.out.println(events.size());
+		map.addAttribute("events", events);
+		return "view-events";
+	}
+	
+	@RequestMapping( value="/delete/{eventId}", method = RequestMethod.GET)
+	public ModelAndView delete(@PathVariable("eventId") Long eventId, ModelMap map) {
+		Events event = eventService.findById(eventId);
+		if(event != null) {
+			eventService.delete(event);
+		}
+		return new ModelAndView("redirect:/event");
+	}
 }
